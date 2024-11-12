@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de la Orden</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+            background: url('https://source.unsplash.com/random/1920x1080/?technology') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 3em;
+            margin-top: 50px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+        }
+        .order-detail {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            margin-top: 30px;
+            max-width: 800px;
+            margin: auto;
+        }
+        .order-detail h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .order-detail p {
+            font-size: 1.4em;
+            margin: 10px 0;
+        }
+        .order-items {
+            margin-top: 20px;
+            border-top: 2px solid #fff;
+            padding-top: 20px;
+        }
+        .order-items table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .order-items th, .order-items td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #fff;
+        }
+        .order-items th {
+            background-color: #333;
+        }
+        button {
+            padding: 12px 30px;
+            background-color: #ff5733;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.5em;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        button:hover {
+            background-color: #c70039;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Detalle de la Orden #{{ orden.id }}</h1>
+    <div class="order-detail">
+        <h2>Información de la Orden</h2>
+        <p><strong>Fecha de Pedido:</strong> {{ orden.fecha }}</p>
+        <p><strong>Cliente:</strong> {{ orden.cliente.nombre }}</p>
+        <p><strong>Total:</strong> ${{ orden.total }}</p>
+
+        <div class="order-items">
+            <h2>Productos en esta Orden</h2>
+            <table>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Total</th>
+                </tr>
+                {% for detalle in orden.detallepedido_set.all %}
+                    <tr>
+                        <td>{{ detalle.producto.nombre }}</td>
+                        <td>{{ detalle.cantidad }}</td>
+                        <td>${{ detalle.precio }}</td>
+                        <td>${{ detalle.total }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <button onclick="window.location.href='/path_to_another_page'">Ver Otra Orden</button>
+    </div>
+</body>
+</html>
